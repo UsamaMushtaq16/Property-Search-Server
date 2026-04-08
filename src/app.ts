@@ -12,6 +12,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Fail fast if DATABASE_URL is not configured
+if (!process.env.DATABASE_URL && !process.env.DB_HOST) {
+  app.use('/api', (_req, res) => {
+    res.status(503).json({
+      success: false,
+      error: 'Database not configured. Set the DATABASE_URL environment variable.',
+    });
+  });
+}
+
 // Swagger spec (JSON)
 app.get('/api-docs/swagger.json', (_req, res) => {
   res.json(swaggerSpec);
