@@ -16,6 +16,24 @@ app.use(express.urlencoded({ extended: true }));
 // Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Base route — confirms the server is alive
+app.get('/', (_req, res) => {
+  const PORT = process.env.PORT ?? '3000';
+  res.json({
+    success: true,
+    message: `Property Search API is running on port ${PORT}`,
+    version: '1.0.0',
+    environment: process.env.NODE_ENV ?? 'development',
+    endpoints: {
+      docs:   '/api-docs',
+      health: '/api/v1/health',
+      search: 'POST /api/v1/properties/search',
+      list:   'GET  /api/v1/properties',
+      byId:   'GET  /api/v1/properties/:id',
+    },
+  });
+});
+
 // API routes
 app.use('/api/v1', propertyRoutes);
 

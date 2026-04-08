@@ -84,6 +84,24 @@ npm run dev
 
 Server starts at `http://localhost:3000` with hot-reload via nodemon + ts-node.
 
+Visit `http://localhost:3000/` — you should see a JSON response confirming the server is alive:
+
+```json
+{
+  "success": true,
+  "message": "Property Search API is running on port 3000",
+  "version": "1.0.0",
+  "environment": "development",
+  "endpoints": {
+    "docs":   "/api-docs",
+    "health": "/api/v1/health",
+    "search": "POST /api/v1/properties/search",
+    "list":   "GET  /api/v1/properties",
+    "byId":   "GET  /api/v1/properties/:id"
+  }
+}
+```
+
 ---
 
 ## 6. Building for Production
@@ -99,10 +117,18 @@ No `ts-node` in production — the compiled JavaScript in `/dist` is used direct
 
 ## 7. API Reference
 
+> Replace `{BASE_URL}` with `http://localhost:3000` when running locally, or your Vercel deployment URL (e.g. `https://property-search-api-xyz.vercel.app`) when deployed.
+
+### GET / — Server status
+
+```bash
+curl {BASE_URL}/
+```
+
 ### POST /api/v1/properties/search — Natural language search
 
 ```bash
-curl -X POST http://localhost:3000/api/v1/properties/search \
+curl -X POST {BASE_URL}/api/v1/properties/search \
   -H "Content-Type: application/json" \
   -d '{"query": "brownfield sites over 5 acres in the Midlands under £2m"}'
 ```
@@ -110,26 +136,29 @@ curl -X POST http://localhost:3000/api/v1/properties/search \
 ### GET /api/v1/properties — List all (with optional filters)
 
 ```bash
-curl "http://localhost:3000/api/v1/properties?site_type=brownfield&region=Midlands&min_acres=5"
+curl "{BASE_URL}/api/v1/properties?site_type=brownfield&region=Midlands&min_acres=5"
 ```
 
 ### GET /api/v1/properties/:id — Get by ID
 
 ```bash
-curl http://localhost:3000/api/v1/properties/1
+curl {BASE_URL}/api/v1/properties/1
 ```
 
 ### GET /api/v1/health — Health check
 
 ```bash
-curl http://localhost:3000/api/v1/health
+curl {BASE_URL}/api/v1/health
 ```
 
 ---
 
 ## 8. Swagger
 
-Interactive API docs at: **http://localhost:3000/api-docs**
+Interactive API docs at: **`{BASE_URL}/api-docs`**
+
+- Locally: **http://localhost:3000/api-docs**
+- On Vercel: **https://property-search-api-xyz.vercel.app/api-docs**
 
 ---
 
