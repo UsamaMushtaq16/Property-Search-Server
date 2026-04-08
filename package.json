@@ -23,9 +23,17 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "roots": ["<rootDir>/tests"],
-    "moduleFileExtensions": ["ts", "js", "json"],
-    "testMatch": ["**/*.test.ts"],
+    "roots": [
+      "<rootDir>/tests"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
     "transform": {
       "^.+\\.ts$": "ts-jest"
     }
@@ -36,6 +44,7 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "pg": "^8.13.3",
+    "serverless-http": "^4.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "zod": "^3.24.3"
